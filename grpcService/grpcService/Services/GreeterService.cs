@@ -42,5 +42,29 @@ namespace grpcService
                 await Task.Delay(TimeSpan.FromSeconds(1), context.CancellationToken);
             }
         }
+
+        // Streaming from client.
+        public override async Task<HelloReply> SayHelloFromClient(IAsyncStreamReader<HelloRequest> requestStream, ServerCallContext context)
+        {
+            while(await requestStream.MoveNext())
+            {
+                var mmsg = requestStream.Current;
+            }
+            return new HelloReply();
+        }
+
+        // streaming Bi-directional streaming
+        //Sends a response for each request.
+        public override async Task StreamingBothWays(IAsyncStreamReader<HelloRequest> requestStream, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+        {
+            await foreach(var msg in requestStream.ReadAllAsync())
+            {
+                await responseStream.WriteAsync(new HelloReply());
+            }
+        }
+
+
+
+
     }
 }

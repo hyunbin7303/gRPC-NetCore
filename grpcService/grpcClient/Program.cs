@@ -35,6 +35,12 @@ namespace grpcClient
                 Console.WriteLine("From Server : "+ item.Message);
             }
         }
+        static async Task testing_ServerStreamingCall_ct()
+        {
+
+        }
+
+
         static async Task testing_UnaryCall()
         {
             Greeter.GreeterClient client = new Greeter.GreeterClient(channel);
