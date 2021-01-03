@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "grpcService", "grpcService\grpcService.csproj", "{3CFE94C0-A7B8-47A1-84B5-F9DB3840D9D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grpcClient", "grpcClient\grpcClient.csproj", "{2F6768AD-DA3D-4693-95EA-B02CD9723812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "grpcClient", "grpcClient\grpcClient.csproj", "{2F6768AD-DA3D-4693-95EA-B02CD9723812}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

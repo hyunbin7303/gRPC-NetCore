@@ -7,9 +7,14 @@ package greet;
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
-  rpc SayHelloStream (HelloRequest) returns (stream HelloReply);
+  rpc SayHello (HelloRequest) returns (HelloReply); // Unary
+  rpc SayHelloStream (HelloRequest) returns (stream HelloReply); // server streaming
+  rpc SayHelloStream_useCt (HelloRequest) returns (stream HelloReply); // server streaming
 
+
+
+  rpc SayHelloFromClient (stream HelloRequest) returns (HelloReply); // client streaming
+  rpc StreamingBothWays(stream HelloRequest) returns (stream HelloReply); // bi-directional streaming
 }
 
 
@@ -22,3 +27,5 @@ message HelloRequest {
 message HelloReply {
   string message = 1;
 }
+
+

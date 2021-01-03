@@ -5,9 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <None Remove="Protos\customers.proto" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="Protos\customers.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <!--<Content Update="Protos\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>-->
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Content Include="Protos\*" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>-->
+  
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
   </ItemGroup>

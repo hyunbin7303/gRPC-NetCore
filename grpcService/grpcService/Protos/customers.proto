@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "grpcService";
+
+
+service Customer{
+	rpc GetCustomerInfo (CustomerLookupModel) returns (CustomerModel);
+	rpc GetNewCustomers (NewCustomerRequest) returns (stream CustomerModel);
+
+}
+
+// in GRPC... requires parameter, so just need to make empty message.
+message NewCustomerRequest {
+
+}
+
+message CustomerLookupModel {
+	int32 userId = 1;// has to be int 32, int is not working.
+}
+
+message CustomerModel{
+	string fName = 1;
+	string lName = 2;
+	string email = 3;
+	bool isAlive = 4;
+	int32 age = 5;
+}
+
+// Remember that proto is not a microsoft came up with.
+// This is just stnadard in the industry. so it's different with c#.
+
+
+// Order isreally important in grpc.

@@ -14,26 +14,33 @@ namespace grpcService
         {
             _logger = logger;
         }
-
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
-            {
-                Message = "Hello " + request.Name
-            });
+            var response = new HelloReply { Message = "Hello " + request.Name };
+            return Task.FromResult(response);
         }
+        // Server streaming method. 
+        // gets the request message as a parameter. 
+        // The client has no way to send additional messages or data once the server streaming method has started.
         public override async Task SayHelloStream(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
         {
             for (int i = 0; i<10; i++)
             {
-                await responseStream.WriteAsync(new HelloReply
-                {
-                    Message = "Hello" + request.Name + " " + i
-                });
-
+                var response = new HelloReply { Message = "Hello" + request.Name + " " + i };
+                await responseStream.WriteAsync(response);
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
         }
 
+        //A client can cancel the call when it's no longer needed; The cancellationToken should be used on the server with async methods so that:
+        // Any async work is cancelled together with the streaming call.
+        public override async Task SayHelloStream_useCt(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+        {
+            while(!context.CancellationToken.IsCancellationRequested)
+            {
+                await responseStream.WriteAsync(new HelloReply());
+                await Task.Delay(TimeSpan.FromSeconds(1), context.CancellationToken);
+            }
+        }
     }
 }
