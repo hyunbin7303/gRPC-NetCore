@@ -50,4 +50,4 @@ http2 works under the hood.
 ### Reference
 * https://docs.microsoft.com/en-us/aspnet/core/grpc/client?view=aspnetcore-5.0
 * https://auth0.com/blog/implementing-microservices-grpc-dotnet-core-3/
-* 
+* https://medium.com/aspnetrun/using-grpc-in-microservices-for-building-a-high-performance-interservice-communication-with-net-5-11f3e5fa0e9d
