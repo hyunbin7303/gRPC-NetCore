@@ -39,3 +39,14 @@ http2 works under the hood.
 
 
 
+
+
+### Things to remember.
+* A gPRC client should use the same connection-level seecurity as the called service. So please use client cerficate authentication over TLS. 
+
+
+
+
+### Reference
+* https://docs.microsoft.com/en-us/aspnet/core/grpc/client?view=aspnetcore-5.0
+* 
