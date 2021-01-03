@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "grpcService";
+
+
+service Todos {
+	rpc SayHello (TodoRequest) retruns (TodoReply);
+}
+
+
+
+message TodoRequest{
+	string name = 10;
+}
+
+
+message TodoService {
+	string message = 100;
+}
