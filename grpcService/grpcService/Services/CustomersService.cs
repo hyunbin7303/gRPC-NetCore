@@ -1,10 +1,11 @@
-﻿using Grpc.Core;
+﻿using grpc.Domain;
+using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Google.Protobuf.Collections;
 namespace grpcService.Services
 {
     public class CustomersService : Customer.CustomerBase
@@ -14,7 +15,6 @@ namespace grpcService.Services
         {
             _logger = logger;
         }
-
         public override Task<CustomerModel> GetCustomerInfo(CustomerLookupModel request, ServerCallContext context)
         {
             CustomerModel output = new CustomerModel();
@@ -22,6 +22,9 @@ namespace grpcService.Services
             {
                 output.FName = "Kevin";
                 output.LName = "Park";
+                output.Email = "hyunbin7303@gmail.com";
+                output.Age = 27;
+                output.Order = new RepeatedField<Order> {   }
             }
             else if (request.UserId == 2)
             {
@@ -33,10 +36,8 @@ namespace grpcService.Services
                 output.FName = "Julio";
                 output.LName = "Rivas";
             }
-
             return Task.FromResult(output);
         }
-
         public override async Task GetNewCustomers(NewCustomerRequest request, IServerStreamWriter<CustomerModel> responseStream, ServerCallContext context)
         {
             List<CustomerModel> customers = new List<CustomerModel>

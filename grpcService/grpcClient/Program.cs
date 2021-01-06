@@ -11,8 +11,13 @@ namespace grpcClient
         private static GrpcChannel channel = GrpcChannel.ForAddress("https://localhost:5001");
         static async Task Main(string[] args)
         {
-            //     await testing_ServerStreamingCall();
-            await testing_customer(2);
+            await testing_getHeader();
+
+            //await testing_UnaryCall();
+            //await testing_basic();
+            //await testing_ServerStreamingCall();
+            //await testing_ServerStreamingCall_ct();
+            //await testing_customer(2);
         }
         static async Task testing_basic()
         {
@@ -35,12 +40,19 @@ namespace grpcClient
                 Console.WriteLine("From Server : "+ item.Message);
             }
         }
-        static async Task testing_ServerStreamingCall_ct()
+        static async Task testing_ServerStreamingCall_ct()// Cancellation Token Testing.
         {
+            var client = new Greeter.GreeterClient(channel);
+            var call = client.SayHelloStream_useCt(new HelloRequest
+            {
+                Name = "Kevin Park Streaming "
+            });
+            await foreach (var item in call.ResponseStream.ReadAllAsync())
+            {
+                Console.WriteLine("From Server : " + item.Message);
+            }
 
         }
-
-
         static async Task testing_UnaryCall()
         {
             Greeter.GreeterClient client = new Greeter.GreeterClient(channel);
@@ -68,7 +80,28 @@ namespace grpcClient
                 }
             }
         }
+        static async Task testing_Bidrectional()
+        {
+            var greaterClient = new Greeter.GreeterClient(channel);
+            //using (var call = customerClient.)
+            using(var call = greaterClient.StreamingBothWays())
+            {
+                while(await call.ResponseStream.MoveNext())
+                {
 
+                }
+            }
+        }
+        static async Task testing_getHeader()
+        {
+            var client = new Greeter.GreeterClient(channel);
+            using var call = client.SayHelloAsync(new HelloRequest { Name = "Reuqest name : Kevin" });
 
+            var headers = await call.ResponseHeadersAsync;
+            var myValue = headers.GetValue("my-trailer-name");
+            Console.WriteLine("Header value " + myValue);
+            var response = await call.ResponseAsync;
+            Console.WriteLine("Message we've got : " + response);        
+        }
     }
 }

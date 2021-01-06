@@ -16,7 +16,7 @@ namespace grpcService
         }
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            var response = new HelloReply { Message = "Hello " + request.Name };
+            var response = new HelloReply { Message = "SayHello Server got message :  " + request.Name };
             return Task.FromResult(response);
         }
         // Server streaming method. 
@@ -38,7 +38,8 @@ namespace grpcService
         {
             while(!context.CancellationToken.IsCancellationRequested)
             {
-                await responseStream.WriteAsync(new HelloReply());
+                var response = new HelloReply { Message = "Hello" + request.Name};
+                await responseStream.WriteAsync(response);
                 await Task.Delay(TimeSpan.FromSeconds(1), context.CancellationToken);
             }
         }
@@ -62,9 +63,5 @@ namespace grpcService
                 await responseStream.WriteAsync(new HelloReply());
             }
         }
-
-
-
-
     }
 }

@@ -1,7 +1,5 @@
 syntax = "proto3";
-
 option csharp_namespace = "grpcService";
-
 package greet;
 
 // The greeting service definition.
@@ -10,9 +8,6 @@ service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply); // Unary
   rpc SayHelloStream (HelloRequest) returns (stream HelloReply); // server streaming
   rpc SayHelloStream_useCt (HelloRequest) returns (stream HelloReply); // server streaming
-
-
-
   rpc SayHelloFromClient (stream HelloRequest) returns (HelloReply); // client streaming
   rpc StreamingBothWays(stream HelloRequest) returns (stream HelloReply); // bi-directional streaming
 }
