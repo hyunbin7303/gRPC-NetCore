@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <None Remove="Protos\customers.proto" />
+    <None Remove="Protos\product.proto" />
   </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\customers.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\product.proto" GrpcServices="Server" />
     <!--<Content Update="Protos\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>-->

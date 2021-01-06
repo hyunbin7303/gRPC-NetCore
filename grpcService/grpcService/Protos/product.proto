@@ -1,0 +1,18 @@
+syntax = "proto3";
+option csharp_namespace = "grpcService";
+
+service Product {
+ rpc GetName (New) returns (ProductModel); 
+}
+
+
+
+
+message ProductModel{
+	string name = 1;
+	int32 amount = 2;
+}
+
+message New{
+	string name = 1;
+}

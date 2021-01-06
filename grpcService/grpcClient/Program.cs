@@ -13,6 +13,7 @@ namespace grpcClient
         {
             await testing_getHeader();
 
+            await testing_product();
             //await testing_UnaryCall();
             //await testing_basic();
             //await testing_ServerStreamingCall();
@@ -102,6 +103,14 @@ namespace grpcClient
             Console.WriteLine("Header value " + myValue);
             var response = await call.ResponseAsync;
             Console.WriteLine("Message we've got : " + response);        
+        }
+
+        static async Task testing_product()
+        {
+            var client = new Product.ProductClient(channel);
+            var model = await client.GetNameAsync(new New  { Name = "PS5"});
+
+            Console.WriteLine(model.Name);
         }
     }
 }

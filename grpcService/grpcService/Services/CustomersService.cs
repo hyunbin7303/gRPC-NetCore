@@ -24,7 +24,6 @@ namespace grpcService.Services
                 output.LName = "Park";
                 output.Email = "hyunbin7303@gmail.com";
                 output.Age = 27;
-                output.Order = new RepeatedField<Order> {   }
             }
             else if (request.UserId == 2)
             {
