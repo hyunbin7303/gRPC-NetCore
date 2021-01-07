@@ -2,17 +2,45 @@ syntax = "proto3";
 option csharp_namespace = "grpcService";
 
 service Product {
- rpc GetName (New) returns (ProductModel); 
+	rpc GetName (New) returns (ProductModel); 
+	rpc GetProduct (GetProductRequest) returns (ProductModel);
+	rpc GetAllProduct (GetAllProductRequest) returns (stream ProductModel);
+	rpc AddProduct(AddProductRequest) returns (ProductModel);
+	rpc UpdateProduct(UpdateProductRequest) returns (ProductModel);
+	rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
 }
 
-
-
-
+message UpdateProductRequest {
+	ProductModel product = 1;
+}
+message DeleteProductRequest{
+	int32 id = 1;
+}
+message DeleteProductResponse {
+	bool success =1;
+}
 message ProductModel{
-	string name = 1;
-	int32 amount = 2;
+	int32  id = 1;
+	string name = 2;
+	int32  amount = 3;
+	string description = 4;
 }
-
+message GetProductRequest{
+	int32 id = 1;
+}
+message GetAllProductRequest{ }
+message AddProduct{
+	ProductModel product = 1;
+}
+message AddProductRequest{
+	ProductModel product = 1;
+}
 message New{
 	string name = 1;
+}
+
+
+enum ProductStatus {
+	INSTOCK = 0;
+	NONE = 1;
 }

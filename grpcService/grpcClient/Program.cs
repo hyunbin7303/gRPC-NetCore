@@ -11,7 +11,7 @@ namespace grpcClient
         private static GrpcChannel channel = GrpcChannel.ForAddress("https://localhost:5001");
         static async Task Main(string[] args)
         {
-            await testing_getHeader();
+            //await testing_getHeader();
 
             await testing_product();
             //await testing_UnaryCall();
@@ -109,7 +109,6 @@ namespace grpcClient
         {
             var client = new Product.ProductClient(channel);
             var model = await client.GetNameAsync(new New  { Name = "PS5"});
-
             Console.WriteLine(model.Name);
         }
     }
