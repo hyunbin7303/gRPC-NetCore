@@ -67,7 +67,6 @@ namespace grpcService.Services
                 },
 
             };
-
             foreach(var customer in customers)
             {
                 await Task.Delay(1000);
