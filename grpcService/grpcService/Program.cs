@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace grpcService
@@ -13,6 +15,8 @@ namespace grpcService
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            Console.WriteLine("KEVIN");
+            Console.ReadLine();
         }
 
         // Additional configuration is required to successfully run gRPC on macOS.
@@ -22,6 +26,11 @@ namespace grpcService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseStartup<Startup>().ConfigureKestrel(options =>
+                    //{
+                    //    options.Listen(IPAddress.Any, 5001,
+                    //        listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
+                    //});
                 });
     }
 }

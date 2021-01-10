@@ -12,11 +12,7 @@ namespace grpcService.Test
     {
         private static GrpcChannel channel = GrpcChannel.ForAddress("https://localhost:5001");
 
-        //public LazyCounterServiceShould(TestServerFixture testServerFixture)
-        //{
-        //    var channel = testServerFixture.GrpcChannel;
-        //    _clientService = channel.CreateGrpcService<ILazyCounterService>();
-        //}
+
         private readonly ProductService _clientService;
         
 

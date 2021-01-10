@@ -1,32 +1,35 @@
-﻿using Grpc.Core;
+using Grpc.Core;
 using Grpc.Net.Client;
 using grpcService;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
-namespace grpcClient
+
+namespace grpc.Tests
 {
-    [TestFixture]
-    class GreeterClientTest
+
+    public class GreetServiceTest
     {
-        const string Host = "localhost";
+
         private static GrpcChannel channel;
+        const string Host = "localhost";
         private static Greeter.GreeterClient greeterClient;
+
         [OneTimeSetUp]
         public void Init()
         {
             channel = GrpcChannel.ForAddress("https://localhost:5001");
-            greeterClient = new Greeter.GreeterClient(channel);
         }
         [Test]
-        public async Task Testing_basic()
+        public async Task Unray_HelloRequest_GetResponse()
         {
-           greeterClient = new Greeter.GreeterClient(channel);
-            var response = await greeterClient.SayHelloAsync(new HelloRequest { Name = ".Net Conf" });
-            Assert.Equals("", response.Message);
+            var GreeterClient = new Greeter.GreeterClient(channel);
+            var response = await GreeterClient.SayHelloAsync(new HelloRequest { Name = "kevin" });
+            Assert.AreEqual("SayHello Server got message :  kevin", response.Message);
         }
+
         [Test]
-        public async Task testing_ServerStreamingCall()
+        public async Task StreamingServer_SyHelloStream_GetResponse()
         {
             greeterClient = new Greeter.GreeterClient(channel);
             var call = greeterClient.SayHelloStream(new HelloRequest
@@ -39,7 +42,7 @@ namespace grpcClient
             }
         }
         [Test]
-        public async Task testing_ServerStreamingCall_ct()// Cancellation Token Testing.
+        public async Task StreamingServer_CheckCancellationToken_gerMessage()// Cancellation Token Testing.
         {
             var client = new Greeter.GreeterClient(channel);
             var call = client.SayHelloStream_useCt(new HelloRequest
@@ -50,10 +53,9 @@ namespace grpcClient
             {
                 Console.WriteLine("From Server : " + item.Message);
             }
-
         }
         [Test]
-        public async Task testing_UnaryCall()
+        public async Task Anray_CancellationToken_GetResponse()
         {
             greeterClient = new Greeter.GreeterClient(channel);
             // grpc-internal-encoidng-request is a special metadata value that tells the client to compress the request.
@@ -77,18 +79,14 @@ namespace grpcClient
             }
         }
         [Test]
-        public async Task testing_getHeader()
+        public async Task anray_sayHello_getHeader()
         {
             var client = new Greeter.GreeterClient(channel);
-            using var call = client.SayHelloAsync(new HelloRequest { Name = "Reuqest name : Kevin" });
-
+            using var call = client.SayHelloAsync(new HelloRequest { Name = "Kevin" });
             var headers = await call.ResponseHeadersAsync;
             var myValue = headers.GetValue("my-trailer-name");
-            Console.WriteLine("Header value " + myValue);
-            var response = await call.ResponseAsync;
-            Console.WriteLine("Message we've got : " + response);        
+            // not sure How I can test?
         }
-   
 
 
     }
