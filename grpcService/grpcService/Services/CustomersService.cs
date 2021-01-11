@@ -73,5 +73,9 @@ namespace grpcService.Services
                 await responseStream.WriteAsync(customer);
             }
         }
+        public override Task<CustomerModel> GetCustomerOrders(CustomerLookupModel request, ServerCallContext context)
+        {
+            return base.GetCustomerOrders(request, context);
+        }
     }
 }

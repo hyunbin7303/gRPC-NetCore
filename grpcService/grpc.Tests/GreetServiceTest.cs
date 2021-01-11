@@ -27,7 +27,6 @@ namespace grpc.Tests
             var response = await GreeterClient.SayHelloAsync(new HelloRequest { Name = "kevin" });
             Assert.AreEqual("SayHello Server got message :  kevin", response.Message);
         }
-
         [Test]
         public async Task StreamingServer_SyHelloStream_GetResponse()
         {
@@ -87,7 +86,5 @@ namespace grpc.Tests
             var myValue = headers.GetValue("my-trailer-name");
             // not sure How I can test?
         }
-
-
     }
 }

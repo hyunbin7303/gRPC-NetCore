@@ -1,5 +1,4 @@
-﻿using System;
-namespace grpc.Domain
+﻿namespace grpc.Domain
 {
     public class Product
     {

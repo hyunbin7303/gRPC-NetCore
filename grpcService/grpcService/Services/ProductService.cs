@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using grpc.Domain;
 using Grpc.Core;
-
+using Microsoft.Extensions.Logging;
 
 namespace grpcService.Services
 {
     public class ProductService : Product.ProductBase
     {
+        private readonly ILogger<ProductService> _logger;
+
         public override Task<ProductModel> GetName(New request, ServerCallContext context)
         {
            var response = new ProductModel { Amount = 23, Name = request.Name };

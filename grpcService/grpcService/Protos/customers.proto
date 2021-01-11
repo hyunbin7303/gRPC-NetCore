@@ -5,11 +5,27 @@ service Customer{
 	rpc GetCustomerInfo (CustomerLookupModel) returns (CustomerModel);
 	rpc GetNewCustomers (NewCustomerRequest) returns (stream CustomerModel);
 	rpc GetCustomerOrders (CustomerLookupModel) returns(CustomerModel);
-
+	rpc AddNewCustomers (AddCustomerRequest) returns (AddCustomerResponse);
+	rpc UpdateCustomerInfo (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+	rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
 }
-
-// in GRPC... requires parameter, so just need to make empty message.
-message NewCustomerRequest {
+message AddCustomerRequest {
+	string fName = 1;
+	string lName = 2;
+	string email = 3;
+	bool isAlive = 4;
+	int32 age = 5;
+	phoneNum phone = 6;
+	repeated Order order= 7;
+}
+message AddCustomerResponse{}
+message UpdateCustomerRequest{}
+message UpdateCustomerResponse{}
+message DeleteCustomerRequest{}
+message DeleteCustomerResponse{}
+message NewCustomerRequest{
+	int32 userId = 1;
+	string fName = 2;
 }
 message CustomerLookupModel { 
 	int32 userId = 1;
@@ -29,7 +45,6 @@ enum PhoneType {
 	WORK = 2;
 	OTHER = 3;
 }
-
 message phoneNum {
 	string number = 1;
 	PhoneType type = 2;

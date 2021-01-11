@@ -4,7 +4,12 @@ using System.Text;
 
 namespace grpc.Domain
 {
-    class Cart
+    public class Cart
     {
+        public string cartId { get; set; }
+        public int productId { get; set; }
+        public int quantity { get; set; }
+        public string Description { get;set;}
+        public DateTime? dateAdded { get; set; }
     }
 }
